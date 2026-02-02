@@ -13,14 +13,17 @@ const { writeFile, readFile } = require('node:fs/promises')
 
 
 const androidWorkaround = async () => {
- const androidOnLoadFile = path.join(
-   process.cwd(),
-   'nitrogen/generated/android',
-   'M3OnLoad.cpp'
- )
- 
- 
- const str = await readFile(androidOnLoadFile, { encoding: 'utf8' })
- await writeFile(androidOnLoadFile, str.replace(/margelo\/nitro\//g, ''))
+  const androidOnLoadFile = path.join(
+    process.cwd(),
+    'nitrogen/generated/android',
+    'M3OnLoad.cpp'
+  )
+
+
+  const str = await readFile(androidOnLoadFile, { encoding: 'utf8' })
+  let newContent = str.replace(/com\/margelo\/nitro\/m3\/com\.m3\./g, 'com/m3/')
+  newContent = newContent.replace(/com\/margelo\/nitro\/m3\//g, 'com/m3/')
+  await writeFile(androidOnLoadFile, newContent)
+  console.log(`✅ Applied refined Android workaround to ${path.basename(androidOnLoadFile)}`)
 }
 androidWorkaround()

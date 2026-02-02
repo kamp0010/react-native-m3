@@ -1,0 +1,31 @@
+﻿
+build_log.txt:107:./gradlew : e: 
+file:///D:/m3-for-RN
+build_log.txt:121:   pecified: (e: 
+file:///D:/m...r  
+build_log.txt:127:e: 
+file:///D:/m3-for-RN/react-nativ
+build_log.txt:135:e: 
+file:///D:/m3-for-RN/react-nativ
+build_log.txt:140:e: 
+file:///D:/m3-for-RN/react-nativ
+build_log.txt:148:e: 
+file:///D:/m3-for-RN/react-nativ
+build_log.txt:153:e: 
+file:///D:/m3-for-RN/react-nativ
+build_log.txt:158:e: 
+file:///D:/m3-for-RN/react-nativ
+build_log.txt:163:e: 
+file:///D:/m3-for-RN/react-nativ
+build_log.txt:168:e: 
+file:///D:/m3-for-RN/react-nativ
+build_log.txt:173:e: 
+file:///D:/m3-for-RN/react-nativ
+build_log.txt:178:e: 
+file:///D:/m3-for-RN/react-nativ
+build_log.txt:183:e: 
+file:///D:/m3-for-RN/react-nativ
+build_log.txt:188:e: 
+file:///D:/m3-for-RN/react-nativ
+
+

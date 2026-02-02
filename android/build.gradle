@@ -6,6 +6,7 @@ buildscript {
 
   dependencies {
     classpath "com.android.tools.build:gradle:8.8.0"
+    classpath "org.jetbrains.kotlin:compose-compiler-gradle-plugin:2.1.20"
   }
 }
 
@@ -20,6 +21,7 @@ def isNewArchitectureEnabled() {
 
 apply plugin: "com.android.library"
 apply plugin: 'org.jetbrains.kotlin.android'
+apply plugin: 'org.jetbrains.kotlin.plugin.compose'
 apply from: '../nitrogen/generated/android/M3+autolinking.gradle'
 apply from: "./fix-prefab.gradle"
 
@@ -94,6 +96,7 @@ android {
   buildFeatures {
     buildConfig true
     prefab true
+    compose true
   }
 
   buildTypes {
@@ -109,6 +112,15 @@ android {
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
+  }
+
+  tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    kotlinOptions {
+      freeCompilerArgs += [
+        "-opt-in=androidx.compose.material3.ExperimentalMaterial3ExpressiveApi",
+        "-opt-in=kotlin.RequiresOptIn"
+      ]
+    }
   }
 
   sourceSets {
@@ -137,6 +149,18 @@ dependencies {
 
   // Add a dependency on NitroModules
   implementation project(":react-native-nitro-modules")
+
+  // Compose and Material 3 (Using alpha13 for CircularWavyProgressIndicator)
+  implementation "androidx.compose.ui:ui"
+  implementation "androidx.compose.material3:material3:1.5.0-alpha13"
+  implementation "androidx.compose.ui:ui-tooling-preview"
+  implementation "androidx.activity:activity-compose:1.9.3"
+  implementation "androidx.lifecycle:lifecycle-runtime-compose:2.8.7"
+
+  // WavySlider (Excluding its own material3 version to avoid conflicts)
+  implementation("ir.mahozad.multiplatform:wavy-slider:2.2.0") {
+      exclude group: "androidx.compose.material3", module: "material3"
+  }
 }
 
 if (isNewArchitectureEnabled()) {

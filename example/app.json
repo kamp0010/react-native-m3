@@ -1,4 +1,13 @@
 {
-  "name": "M3Example",
-  "displayName": "M3Example"
+  "expo": {
+    "name": "M3Example",
+    "slug": "m3-example",
+    "version": "1.0.0",
+    "android": {
+      "package": "com.frazzx3221.m3example"
+    },
+    "plugins": [
+      "expo-asset"
+    ]
+  }
 }

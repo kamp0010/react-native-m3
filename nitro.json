@@ -16,6 +16,14 @@
     "M3": {
       "swift": "HybridM3",
       "kotlin": "HybridM3"
+    },
+    "WavyProgressIndicatorView": {
+      "swift": "HybridWavyProgressIndicatorView",
+      "kotlin": "com.m3.HybridWavyProgressIndicatorView"
+    },
+    "WavySliderView": {
+      "swift": "HybridWavySliderView",
+      "kotlin": "com.m3.HybridWavySliderView"
     }
   },
   "ignorePaths": [

@@ -14,5 +14,8 @@ module.exports = {
         [pkg.name]: {
             root: path.join(__dirname, '..'),
         },
+        'react-native-nitro-modules': {
+            root: path.join(__dirname, '..', 'node_modules', 'react-native-nitro-modules'),
+        },
     },
 }
