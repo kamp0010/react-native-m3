@@ -9,6 +9,7 @@ Bring stunning Material 3 animations to your app with native performance and smo
 - **Built with Nitro**: Blazing fast native bridge for ultra-low latency.
 - **WavyProgressIndicator**: The new Material 3 Expressive wavy circular progress indicator.
 - **WavySlider**: Fully customizable wavy slider with smooth animations, velocity control, and incremental wave effects.
+- **LyricsView**: Synchronized lyrics display with line-synced, word-synced, and static modes.
 - **Fully Customizable**: Control colors, strokes, amplitude, wavelength, and more.
 - **Lightweight**: Zero-overhead views powered by Jetpack Compose (Android).
 
@@ -96,6 +97,62 @@ import { WavySlider, callback } from 'react-native-m3';
 | `enabled` | `boolean` | `true` | Interaction toggle. |
 | `activeTrackColor`| `string` | - | Active track hex color. |
 | `thumbColor` | `string` | - | Thumb hex color. |
+
+---
+
+### 3. LyricsView
+
+A synchronized lyrics display component with support for line-synced, word-synced (rich sync), and static lyrics.
+
+```tsx
+import { LyricsView, callback } from 'react-native-m3';
+
+const lyrics = [
+  { words: "Hello world", startTimeMs: 0 },
+  { words: "This is a test", startTimeMs: 3000 },
+  { words: "Of synced lyrics", startTimeMs: 6000 },
+];
+
+// ...
+<LyricsView
+  style={{ width: '100%', height: 300 }}
+  lines={lyrics}
+  syncType="LINE_SYNCED"
+  currentTimeMs={currentPlaybackTime}
+  onLineClick={callback((ms: number) => seekTo(ms))}
+  activeTextColor="#FFFFFF"
+  inactiveTextColor="#595959"
+/>
+```
+
+> [!NOTE]  
+> For rich sync (word-by-word highlighting), pass `syncType="RICH_SYNCED"` and include word timing in the format: `"word<startMs,endMs> word<startMs,endMs>"`
+
+#### Props
+
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `lines` | `LyricLine[]` | **Required** | Array of lyric lines. |
+| `syncType` | `'LINE_SYNCED' \| 'RICH_SYNCED' \| 'UNSYNCED'` | **Required** | Sync mode. |
+| `currentTimeMs` | `number` | **Required** | Current playback position in ms. |
+| `translatedLines` | `LyricLine[]` | - | Optional translated lyrics. |
+| `activeTextColor` | `string` | `#FFFFFF` | Hex color for active line. |
+| `inactiveTextColor` | `string` | `#595959` | Hex color for inactive lines. |
+| `translationColor` | `string` | `#FFFF00` | Hex color for translations. |
+| `fontSize` | `number` | 24 | Font size in SP. |
+| `showScrollShadows` | `boolean` | `true` | Show gradient shadows. |
+| `backgroundColor` | `string` | `#242424` | Background for shadows. |
+| `onLineClick` | `(ms: number) => void` | - | Tap callback for seeking. |
+
+#### LyricLine Type
+
+```typescript
+interface LyricLine {
+  words: string;        // Text content
+  startTimeMs: number;  // Start time in milliseconds
+  endTimeMs?: number;   // End time (optional)
+}
+```
 
 ## 🏗️ Requirements
 

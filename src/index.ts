@@ -2,8 +2,10 @@ import { NitroModules, getHostComponent } from 'react-native-nitro-modules'
 import type { M3 as M3Spec } from './specs/m3.nitro'
 import type { WavyProgressIndicatorProps, WavyProgressIndicatorMethods } from './specs/WavyProgressIndicator.nitro'
 import type { WavySliderProps, WavySliderMethods } from './specs/WavySlider.nitro'
+import type { LyricsViewProps, LyricsViewMethods } from './specs/LyricsView.nitro'
 import WavyProgressIndicatorViewConfig from './generated/WavyProgressIndicatorViewConfig.json'
 import WavySliderViewConfig from './generated/WavySliderViewConfig.json'
+import LyricsViewViewConfig from './generated/LyricsViewViewConfig.json'
 
 export const M3 = NitroModules.createHybridObject<M3Spec>('M3')
 
@@ -17,8 +19,14 @@ export const WavySlider = getHostComponent<WavySliderProps, WavySliderMethods>(
   () => WavySliderViewConfig
 )
 
+export const LyricsView = getHostComponent<LyricsViewProps, LyricsViewMethods>(
+  'LyricsViewView',
+  () => LyricsViewViewConfig
+)
+
 export * from './specs/WavyProgressIndicator.nitro'
 export * from './specs/WavySlider.nitro'
+export * from './specs/LyricsView.nitro'
 
 /**
  * Wrap the given function in a Nitro callback.

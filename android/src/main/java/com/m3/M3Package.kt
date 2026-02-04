@@ -8,6 +8,7 @@ import com.facebook.react.uimanager.ViewManager
 import com.margelo.nitro.m3.M3OnLoad
 import com.margelo.nitro.m3.views.HybridWavyProgressIndicatorViewManager
 import com.margelo.nitro.m3.views.HybridWavySliderViewManager
+import com.margelo.nitro.m3.views.HybridLyricsViewViewManager
 
 class M3Package : TurboReactPackage() {
     override fun getModule(name: String, reactContext: ReactApplicationContext): NativeModule? = null
@@ -17,7 +18,8 @@ class M3Package : TurboReactPackage() {
     override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
         return listOf(
             HybridWavyProgressIndicatorViewManager(),
-            HybridWavySliderViewManager()
+            HybridWavySliderViewManager(),
+            HybridLyricsViewViewManager()
         )
     }
 

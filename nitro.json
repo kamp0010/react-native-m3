@@ -24,6 +24,10 @@
     "WavySliderView": {
       "swift": "HybridWavySliderView",
       "kotlin": "com.m3.HybridWavySliderView"
+    },
+    "LyricsViewView": {
+      "swift": "HybridLyricsView",
+      "kotlin": "com.m3.HybridLyricsView"
     }
   },
   "ignorePaths": [
