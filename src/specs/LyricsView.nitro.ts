@@ -63,6 +63,11 @@ export interface LyricsViewProps extends HybridViewProps {
      */
     fontSize?: number
     /**
+     * Custom font family name for lyrics text.
+     * Pass the font family name as registered in the app.
+     */
+    fontFamily?: string
+    /**
      * Whether to show scroll shadow gradients at top/bottom. Default: true
      */
     showScrollShadows?: boolean

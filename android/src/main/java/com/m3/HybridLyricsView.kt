@@ -41,7 +41,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
+import com.facebook.react.views.text.ReactFontManager
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.facebook.react.uimanager.ThemedReactContext
@@ -64,6 +66,7 @@ class HybridLyricsView(val context: ThemedReactContext) : HybridLyricsViewViewSp
     private var fontSizeState by mutableStateOf(24f)
     private var showScrollShadowsState by mutableStateOf(true)
     private var backgroundColorState by mutableStateOf(Color(0xFF242424))
+    private var fontFamilyState by mutableStateOf<FontFamily>(FontFamily.Default)
     
     // Props implementation
     override var lines: Array<LyricLine>
@@ -106,6 +109,19 @@ class HybridLyricsView(val context: ThemedReactContext) : HybridLyricsViewViewSp
         get() = null
         set(value) { value?.let { backgroundColorState = parseHexColor(it) } }
     
+    override var fontFamily: String?
+        get() = null
+        set(value) {
+            value?.let { familyName ->
+                try {
+                    val typeface = ReactFontManager.getInstance().getTypeface(familyName, android.graphics.Typeface.NORMAL, context.assets)
+                    fontFamilyState = if (typeface != null) FontFamily(typeface) else FontFamily.Default
+                } catch (e: Exception) {
+                    fontFamilyState = FontFamily.Default
+                }
+            }
+        }
+    
     override var onLineClick: ((startTimeMs: Double) -> Unit)? = null
     
     override fun scrollToLine(index: Double) {
@@ -129,6 +145,7 @@ class HybridLyricsView(val context: ThemedReactContext) : HybridLyricsViewViewSp
                     inactiveTextColor = inactiveTextColorState,
                     translationColor = translationColorState,
                     fontSize = fontSizeState,
+                    fontFamily = fontFamilyState,
                     showScrollShadows = showScrollShadowsState,
                     backgroundColor = backgroundColorState,
                     onLineClick = { startTimeMs -> onLineClick?.invoke(startTimeMs) }
@@ -222,6 +239,7 @@ fun LyricsViewContent(
     inactiveTextColor: Color,
     translationColor: Color,
     fontSize: Float,
+    fontFamily: FontFamily,
     showScrollShadows: Boolean,
     backgroundColor: Color,
     onLineClick: (Double) -> Unit
@@ -367,6 +385,7 @@ fun LyricsViewContent(
                                 inactiveTextColor = inactiveTextColor,
                                 translationColor = translationColor,
                                 fontSize = fontSize,
+                                fontFamily = fontFamily,
                                 modifier = itemModifier
                             )
                         } else {
@@ -379,6 +398,7 @@ fun LyricsViewContent(
                                 inactiveTextColor = inactiveTextColor,
                                 translationColor = translationColor,
                                 fontSize = fontSize,
+                                fontFamily = fontFamily,
                                 modifier = itemModifier
                             )
                         }
@@ -393,6 +413,7 @@ fun LyricsViewContent(
                             inactiveTextColor = inactiveTextColor,
                             translationColor = translationColor,
                             fontSize = fontSize,
+                            fontFamily = fontFamily,
                             modifier = itemModifier
                         )
                     }
@@ -406,6 +427,7 @@ fun LyricsViewContent(
                             inactiveTextColor = inactiveTextColor,
                             translationColor = translationColor,
                             fontSize = fontSize,
+                            fontFamily = fontFamily,
                             modifier = Modifier // Unsynced doesn't need click/centering typically
                         )
                     }
@@ -425,6 +447,7 @@ fun LyricsLineItem(
     inactiveTextColor: Color,
     translationColor: Color,
     fontSize: Float,
+    fontFamily: FontFamily,
     modifier: Modifier = Modifier
 ) {
     Crossfade(targetState = isBold, label = "lyrics_crossfade") { bold ->
@@ -433,14 +456,14 @@ fun LyricsLineItem(
             Text(
                 modifier = if (isCurrent) Modifier else Modifier.blur(1.dp),
                 text = originalWords,
-                style = TextStyle(fontSize = fontSize.sp),
+                style = TextStyle(fontSize = fontSize.sp, fontFamily = fontFamily),
                 color = if (bold && isCurrent) activeTextColor else inactiveTextColor.copy(alpha = 0.35f)
             )
             if (translatedWords != null) {
                 Text(
                     modifier = if (isCurrent) Modifier else Modifier.blur(1.dp),
                     text = translatedWords,
-                    style = TextStyle(fontSize = (fontSize * 0.6f).sp),
+                    style = TextStyle(fontSize = (fontSize * 0.6f).sp, fontFamily = fontFamily),
                     color = if (isCurrent) translationColor else translationColor.copy(alpha = 0.3f)
                 )
             }
@@ -460,6 +483,7 @@ fun RichSyncLyricsLineItem(
     inactiveTextColor: Color,
     translationColor: Color,
     fontSize: Float,
+    fontFamily: FontFamily,
     modifier: Modifier = Modifier
 ) {
     val currentWordIndex by remember(currentTimeMs, parsedLine.words) {
@@ -485,7 +509,8 @@ fun RichSyncLyricsLineItem(
                     isCurrent = isCurrent,
                     activeTextColor = activeTextColor,
                     inactiveTextColor = inactiveTextColor,
-                    fontSize = fontSize
+                    fontSize = fontSize,
+                    fontFamily = fontFamily
                 )
             }
         }
@@ -494,7 +519,7 @@ fun RichSyncLyricsLineItem(
             Text(
                 modifier = if (isCurrent) Modifier else Modifier.blur(1.dp),
                 text = translatedWords,
-                style = TextStyle(fontSize = (fontSize * 0.6f).sp),
+                style = TextStyle(fontSize = (fontSize * 0.6f).sp, fontFamily = fontFamily),
                 color = if (isCurrent) translationColor else translationColor.copy(alpha = 0.3f)
             )
         }
@@ -511,7 +536,8 @@ private fun AnimatedWord(
     isCurrent: Boolean,
     activeTextColor: Color,
     inactiveTextColor: Color,
-    fontSize: Float
+    fontSize: Float,
+    fontFamily: FontFamily
 ) {
     val color by animateColorAsState(
         targetValue = when {
@@ -526,7 +552,7 @@ private fun AnimatedWord(
     
     Text(
         text = word,
-        style = TextStyle(fontSize = fontSize.sp),
+        style = TextStyle(fontSize = fontSize.sp, fontFamily = fontFamily),
         color = color
     )
 }

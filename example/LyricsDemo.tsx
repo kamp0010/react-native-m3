@@ -8,7 +8,9 @@ import {
     Dimensions,
     Animated,
     Image,
+    ActivityIndicator,
 } from 'react-native';
+import { useFonts } from 'expo-font';
 import { LyricsView, callback } from 'react-native-m3';
 import type { LyricLine } from 'react-native-m3';
 
@@ -168,6 +170,10 @@ export default function LyricsDemo({ onBack }: LyricsDemoProps) {
     const [showTranslation, setShowTranslation] = useState(false);
     const [fontSize, setFontSize] = useState(24);
 
+    const [fontsLoaded] = useFonts({
+        'SF-Pro-Display-Bold': require('./SF-Pro-Display-Bold.otf'),
+    });
+
     const progressAnim = useRef(new Animated.Value(0)).current;
 
     const currentTheme = themes[theme];
@@ -198,6 +204,14 @@ export default function LyricsDemo({ onBack }: LyricsDemoProps) {
             useNativeDriver: false,
         }).start();
     }, [currentTimeMs, totalDuration]);
+
+    if (!fontsLoaded) {
+        return (
+            <View style={[styles.container, { backgroundColor: currentTheme.bg, justifyContent: 'center', alignItems: 'center' }]}>
+                <ActivityIndicator size="large" color={currentTheme.accent} />
+            </View>
+        );
+    }
 
 
 
@@ -249,6 +263,7 @@ export default function LyricsDemo({ onBack }: LyricsDemoProps) {
                     translationColor={currentTheme.translationColor}
                     backgroundColor={currentTheme.bg}
                     fontSize={fontSize}
+                    fontFamily="SF-Pro-Display-Bold"
                     showScrollShadows={true}
                     translatedLines={showTranslation ? translatedLyrics : undefined}
                     onLineClick={callback((ms: number) => {

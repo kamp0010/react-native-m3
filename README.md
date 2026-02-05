@@ -140,9 +140,20 @@ const lyrics = [
 | `inactiveTextColor` | `string` | `#595959` | Hex color for inactive lines. |
 | `translationColor` | `string` | `#FFFF00` | Hex color for translations. |
 | `fontSize` | `number` | 24 | Font size in SP. |
+| `fontFamily` | `string` | - | Custom font family name (must be registered in the app). |
 | `showScrollShadows` | `boolean` | `true` | Show gradient shadows. |
 | `backgroundColor` | `string` | `#242424` | Background for shadows. |
 | `onLineClick` | `(ms: number) => void` | - | Tap callback for seeking. |
+
+#### Custom Fonts
+The `fontFamily` prop uses dynamic resolution via React Native's standard mechanisms. You can use fonts loaded via `expo-font` or registered through `react-native.config.js`.
+
+```tsx
+<LyricsView
+  // ...
+  fontFamily="MyCustomFont-Bold"
+/>
+```
 
 #### LyricLine Type
 

@@ -6,8 +6,12 @@
     "android": {
       "package": "com.frazzx3221.m3example"
     },
+    "buildCacheProvider": {
+      "plugin": "expo-build-disk-cache"
+    },
     "plugins": [
-      "expo-asset"
+      "expo-asset",
+      "expo-font"
     ]
   }
 }
