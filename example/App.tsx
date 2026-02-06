@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { WavyProgressIndicator, WavySlider, LyricsView, callback } from 'react-native-m3';
+import { WavyProgressIndicator, WavySlider, LyricsView, LoadingIndicator, callback } from 'react-native-m3';
 import type { LyricLine } from 'react-native-m3';
 import LyricsDemo from './LyricsDemo';
 
@@ -94,6 +94,31 @@ function App() {
           </View>
         </View>
 
+        <Text style={styles.subtitle}>Material 3 LoadingIndicator (Expressive)</Text>
+        <View style={styles.row}>
+          <View style={styles.item}>
+            <Text style={styles.label}>Default</Text>
+            <LoadingIndicator style={styles.indicator} />
+          </View>
+
+          <View style={styles.item}>
+            <Text style={styles.label}>Custom Color</Text>
+            <LoadingIndicator
+              style={styles.indicator}
+              color="#4CAF50"
+            />
+          </View>
+
+          <View style={styles.item}>
+            <Text style={styles.label}>Custom Shapes</Text>
+            <LoadingIndicator
+              style={styles.indicatorLarge}
+              color="#9C27B0"
+              polygonVertices={[3, 5, 8, 12]}
+            />
+          </View>
+        </View>
+
         <View style={styles.sliderSection}>
           <Text style={styles.label}>Sync with Progress: {progress.toFixed(2)}</Text>
           <WavySlider
@@ -152,8 +177,15 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 40,
+    marginBottom: 20,
     color: '#333',
+  },
+  subtitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginTop: 10,
+    marginBottom: 20,
+    color: '#555',
   },
   row: {
     flexDirection: 'row',

@@ -157,6 +157,9 @@ dependencies {
   implementation "androidx.activity:activity-compose:1.9.3"
   implementation "androidx.lifecycle:lifecycle-runtime-compose:2.8.7"
 
+  // Material 3 Extras
+  implementation "androidx.graphics:graphics-shapes:1.0.1"
+
   // WavySlider (Excluding its own material3 version to avoid conflicts)
   implementation("ir.mahozad.multiplatform:wavy-slider:2.2.0") {
       exclude group: "androidx.compose.material3", module: "material3"
