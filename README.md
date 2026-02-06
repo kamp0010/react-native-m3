@@ -10,6 +10,7 @@ Bring stunning Material 3 animations to your app with native performance and smo
 - **WavyProgressIndicator**: The new Material 3 Expressive wavy circular progress indicator.
 - **WavySlider**: Fully customizable wavy slider with smooth animations, velocity control, and incremental wave effects.
 - **LyricsView**: Synchronized lyrics display with line-synced, word-synced, and static modes.
+- **LoadingIndicator**: Material 3 Expressive loading indicator that morphs between various geometric shapes.
 - **Fully Customizable**: Control colors, strokes, amplitude, wavelength, and more.
 - **Lightweight**: Zero-overhead views powered by Jetpack Compose (Android).
 
@@ -164,6 +165,30 @@ interface LyricLine {
   endTimeMs?: number;   // End time (optional)
 }
 ```
+
+---
+
+### 4. LoadingIndicator (@ExperimentalMaterial3ExpressiveApi)
+
+A modern Material Design loading indicator that features a morphing animation between various geometric shapes (polygons).
+
+```tsx
+import { LoadingIndicator } from 'react-native-m3';
+
+// ...
+<LoadingIndicator
+  style={{ width: 48, height: 48 }}
+  color="#6200EE"
+  polygonVertices={[3, 5, 8, 12]} // Morph between triangle, pentagon, octagon, etc.
+/>
+```
+
+#### Props
+
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `color` | `string` | Material Default | Hex color of the loading indicator. |
+| `polygonVertices` | `number[]` | `[...MaterialDefault]` | Sequence of vertices for the morphing shapes (min 2). |
 
 ## 🏗️ Requirements
 

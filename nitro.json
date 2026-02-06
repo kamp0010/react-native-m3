@@ -28,6 +28,10 @@
     "LyricsViewView": {
       "swift": "HybridLyricsView",
       "kotlin": "com.m3.HybridLyricsView"
+    },
+    "LoadingIndicatorView": {
+      "swift": "HybridLoadingIndicatorView",
+      "kotlin": "com.m3.HybridLoadingIndicatorView"
     }
   },
   "ignorePaths": [
